@@ -17,11 +17,21 @@ GPIO.setwarnings(False)
 # Set the pin to be an input
 GPIO.setup(LPR_PIN, GPIO.IN)
 
+# Only save the image once per gate openning
+captured = False
 # Main loop
 while True:
-    if GPIO.input(LPR_PIN) == True:
-        # save the image if switch is closed
+
+    # Capture the image if not captured yet and switch is closed (open gate)
+    if not captured and GPIO.input(LPR_PIN) == True:
         urllib.urlretrieve(SOURCE, FILE)
         print "Gate has been opened!"
-        time.sleep(10)
-    time.sleep(2)
+        captured = True
+
+    # If there was a capture and the switch is now open (closed gate) then
+    # ready the loop to capture again.
+    if captured and GPIO.input(LPR_PIN) == False:
+        print "The gate has now closed!"
+        captured = False
+
+    time.sleep(0.1)
