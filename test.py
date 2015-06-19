@@ -15,23 +15,29 @@ GPIO.setmode(GPIO.BCM)
 # Disable "Ports already in use" warning
 GPIO.setwarnings(False)
 # Set the pin to be an input
-GPIO.setup(LPR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(LPR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# Only save the image once per gate opening
-captured = False
-# Main loop
-while True:
+# Try statement to cleanup GPIO pins
+try:
 
-    # Capture the image if not captured yet and switch is closed (open gate)
-    if not captured and GPIO.input(LPR_PIN) is True:
-        urllib.urlretrieve(SOURCE, FILE)
-        print "Gate has been opened!"
-        captured = True
+    # Only save the image once per gate opening
+    captured = False
+    # Main loop
+    while True:
 
-    # If there was a capture and the switch is now open (closed gate) then
-    # ready the loop to capture again.
-    if captured and GPIO.input(LPR_PIN) is False:
-        print "The gate has now closed!"
-        captured = False
+        # Capture the image if not captured yet and switch is closed (open gate)
+        if not captured and GPIO.input(LPR_PIN) is True:
+            urllib.urlretrieve(SOURCE, FILE)
+            print "Gate has been opened!"
+            captured = True
 
-    time.sleep(1)
+        # If there was a capture and the switch is now open (closed gate) then
+        # ready the loop to capture again.
+        if captured and GPIO.input(LPR_PIN) is False:
+            print "The gate has now closed!"
+            captured = False
+
+        time.sleep(1)
+
+except KeyboardInterrupt:
+    GPIO.cleanup()
