@@ -34,4 +34,4 @@ while True:
         print "The gate has now closed!"
         captured = False
 
-    time.sleep(0.1)
+    time.sleep(1)
