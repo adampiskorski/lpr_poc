@@ -5,6 +5,10 @@ import RPi.GPIO as GPIO
 
 # GPIO input pin to use
 LPR_PIN = 3
+# URL to get image from
+SOURCE = 'http://192.168.0.13:8080/photoaf.jpg'
+# Path to save image locally
+FILE = 'img.jpg'
 
 # Use GPIO pin numbers
 GPIO.setmode(GPIO.BCM)
@@ -17,7 +21,7 @@ GPIO.setup(LPR_PIN, GPIO.IN)
 while True:
     if GPIO.input(LPR_PIN) == True:
         # save the image if switch is closed
-        urllib.urlretrieve('http://192.168.0.13:8080/photoaf.jpg', 'img.jpg')
+        urllib.urlretrieve(SOURCE, FILE)
         print "Gate has been opened!"
         time.sleep(10)
     time.sleep(2)
