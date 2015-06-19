@@ -15,7 +15,7 @@ GPIO.setmode(GPIO.BCM)
 # Disable "Ports already in use" warning
 GPIO.setwarnings(False)
 # Set the pin to be an input
-GPIO.setup(LPR_PIN, GPIO.IN)
+GPIO.setup(LPR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # Try statement to cleanup GPIO pins
 try:
