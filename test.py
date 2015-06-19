@@ -25,14 +25,14 @@ try:
     while True:
 
         # Capture the image if not captured yet and switch is closed (open gate)
-        if not captured and GPIO.input(LPR_PIN) is True:
+        if not captured and GPIO.input(LPR_PIN):
             urllib.urlretrieve(SOURCE, FILE)
             print "Gate has been opened!"
             captured = True
 
         # If there was a capture and the switch is now open (closed gate) then
         # ready the loop to capture again.
-        if captured and GPIO.input(LPR_PIN) is False:
+        if captured and not GPIO.input(LPR_PIN):
             print "The gate has now closed!"
             captured = False
 
