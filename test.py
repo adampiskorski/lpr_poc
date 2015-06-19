@@ -4,7 +4,7 @@ import urllib
 import RPi.GPIO as GPIO
 
 # GPIO input pin to use
-LPR_PIN = 3
+LPR_PIN = 21
 # URL to get image from
 SOURCE = 'http://192.168.0.13:8080/photoaf.jpg'
 # Path to save image locally
