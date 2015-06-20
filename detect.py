@@ -1,7 +1,14 @@
+"""Proof of concept script, which detects when a gate is opened by sensing the state
+of a magnetic switch (so must be run on Raspberry pi 2), then captures an image from
+a source camera and uses ALPR to print all licence plates in the image.
+"""
+
 import time
 import urllib
 
 import RPi.GPIO as GPIO
+
+import lpr
 
 # GPIO input pin to use
 LPR_PIN = 21
@@ -29,6 +36,7 @@ try:
             urllib.urlretrieve(SOURCE, FILE)
             print "Gate has been opened!"
             captured = True
+            print lpr.get_plates(FILE)
 
         # If there was a capture and the switch is now open (closed gate) then
         # ready the loop to capture again.

@@ -1,6 +1,9 @@
 """A module for working with ALPR.
 Use lpr.get_plates(Path to image), eg: lpr.get_plates('img.jpg')
 This will return a list of all plates found in the image
+
+This module is based on lukagabric's script:
+    https://github.com/lukagabric/PyALPR/blob/master/PyALPR.py
 """
 import json
 import shlex
