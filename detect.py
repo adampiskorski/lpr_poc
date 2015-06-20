@@ -2,7 +2,6 @@
 of a magnetic switch (so must be run on Raspberry pi 2), then captures an image from
 a source camera and uses ALPR to print all licence plates in the image.
 """
-
 import time
 import urllib
 
